@@ -1,11 +1,13 @@
 package com.henninghall.date_picker;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.uimanager.annotations.ReactPropGroup;
 
 import net.time4j.android.ApplicationStarter;
 import org.apache.commons.lang3.LocaleUtils;
@@ -75,6 +77,12 @@ public class DatePickerManager extends SimpleViewManager<PickerView>  {
   public void setMinuteInterval(PickerView view, @Nullable int interval) throws Exception {
     if (interval < 0 || interval > 59) throw new Exception("Minute interval out of bounds");
     view.setMinuteInterval(interval);
+  }
+
+  @ReactPropGroup(names = {"height", "width"}, customType = "Style")
+  public void setStyle(PickerView view, int index, Integer style) {
+    if(index == 0) view.style.setHeight(style);
+    if(index == 1) view.style.setWidth(style);
   }
 
   @Override

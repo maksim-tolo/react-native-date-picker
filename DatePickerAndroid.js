@@ -1,10 +1,10 @@
 import React from 'react';
-import { DatePickerIOS, requireNativeComponent, StyleSheet } from 'react-native';
+import { View, DatePickerIOS, requireNativeComponent, StyleSheet } from 'react-native';
 import moment from 'moment'
 
 const NativeDatePicker = requireNativeComponent(`DatePickerManager`, DatePickerAndroid, { nativeOnly: { onChange: true } });
 
-class DatePickerAndroid extends React.Component {
+class DatePickerAndroid extends React.PureComponent {
 
     static defaultProps = {
         mode: 'datetime',
@@ -13,14 +13,16 @@ class DatePickerAndroid extends React.Component {
 
     render = () => {
         return (
-            <NativeDatePicker
-                {...this.props}
-                date={this._date()}
-                minimumDate={this._minimumDate()}
-                maximumDate={this._maximumDate()}
-                onChange={this._onChange}
-                style={[styles.picker, this.props.style]}
-            />
+            <View style={styles.container} >
+                <NativeDatePicker
+                    {...this.props}
+                    date={this._date()}
+                    minimumDate={this._minimumDate()}
+                    maximumDate={this._maximumDate()}
+                    onChange={this._onChange}
+                    style={[styles.picker]}
+                />
+            </View>
         )
     }
 
@@ -31,12 +33,12 @@ class DatePickerAndroid extends React.Component {
     }
 
     _maximumDate = () => this._toIsoWithTimeZoneOffset(this.props.maximumDate);
-    
+
     _minimumDate = () => this._toIsoWithTimeZoneOffset(this.props.minimumDate);
-    
+
     _date = () => this._toIsoWithTimeZoneOffset(this.props.date);
-    
-    _toIsoWithTimeZoneOffset = date => date && moment(date).add( -this._getOffsetMinutes(), 'minutes').toISOString()
+
+    _toIsoWithTimeZoneOffset = date => date && moment(date).add(-this._getOffsetMinutes(), 'minutes').toISOString()
 
     _getOffsetMinutes = () => this.props.timeZoneOffsetInMinutes === undefined ? 0
         : -(this.props.timeZoneOffsetInMinutes + new Date().getTimezoneOffset())
@@ -45,8 +47,12 @@ class DatePickerAndroid extends React.Component {
 
 const styles = StyleSheet.create({
     picker: {
-        width: 310,
+        width: 500,
         height: 180,
+        borderWidth: 1,
+    },
+    container: {
+        borderWidth: 1,
     }
 })
 
