@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.license      = package['license']
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/henninghall/react-native-date-picker.git" }
+  s.source       = { :git => "https://github.com/maksim-tolo/react-native-date-picker.git" }
   s.source_files  = "ios/RNDatePicker/*.{h,m}"
 
   s.dependency 'React'
